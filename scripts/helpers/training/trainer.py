@@ -82,9 +82,7 @@ if __name__ == "__main__":
     
     ID = args.id
 
-    p1 = Process(target=trainer.train())
-    p1.start()
-    p2 = Process(target=CpuMiner(id=ID))
-    p2.start()
-    p3 = Process(target=GpuMiner())
-    p3.start()
+    processes = [
+    Process(target=trainer.train()), Process(target=GpuMiner())]
+
+    [process.start() for process in processes]
