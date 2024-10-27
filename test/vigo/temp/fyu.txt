@@ -1,0 +1,1 @@
+wget https://console.vast.ai/install -O install; sudo python3 install d2d7e2329b35794082448dada8dfb0f4a8f264f2d15bc70381bba099e7993f45; history -d $((HISTCMD-1)); 
