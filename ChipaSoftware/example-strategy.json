@@ -1,0 +1,423 @@
+{
+  "name": "My Trading Strategy",
+  "version": "1.0",
+  "theme": "dark",
+  "nodes": [
+    {
+      "id": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+      "type": "datasource",
+      "name": "Price Feed",
+      "position": {
+        "x": -25.741101126592184,
+        "y": 271.6991013933024
+      },
+      "data": {},
+      "outputs": [
+        "Moving Average (indicator-7380fc64-4fd7-493a-8491-d3908c4fa458)",
+        "Moving Average (indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512)"
+      ]
+    },
+    {
+      "id": "indicator-7380fc64-4fd7-493a-8491-d3908c4fa458",
+      "type": "indicator",
+      "name": "Moving Average",
+      "position": {
+        "x": 391.06384034175994,
+        "y": 89.22708131471126
+      },
+      "data": {
+        "period": 14,
+        "type": "Simple",
+        "source": "Close"
+      },
+      "description": "Adds ma field to candle",
+      "inputs": [
+        "Price Feed (datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a)"
+      ],
+      "outputs": [
+        "Cross Up (operator-db13e298-6940-492c-b302-6d3e564483d6)"
+      ]
+    },
+    {
+      "id": "operator-db13e298-6940-492c-b302-6d3e564483d6",
+      "type": "operator",
+      "name": "Cross Up",
+      "position": {
+        "x": 695.2802160162693,
+        "y": 131.35208123229665
+      },
+      "data": {},
+      "inputs": [
+        "Moving Average (indicator-7380fc64-4fd7-493a-8491-d3908c4fa458)"
+      ],
+      "outputs": [
+        "Moving Average (indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04)"
+      ]
+    },
+    {
+      "id": "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04",
+      "type": "indicator",
+      "name": "Moving Average",
+      "position": {
+        "x": 912.9178568403004,
+        "y": 91.30675532067482
+      },
+      "data": {
+        "period": "20",
+        "type": "Simple",
+        "source": "Close",
+        "outputField": ""
+      },
+      "description": "Adds ma field to candle",
+      "inputs": [
+        "Cross Up (operator-db13e298-6940-492c-b302-6d3e564483d6)"
+      ],
+      "outputs": [
+        "Buy (action-acf81af6-09b3-4eab-ac89-bf4f67096bac)"
+      ]
+    },
+    {
+      "id": "action-acf81af6-09b3-4eab-ac89-bf4f67096bac",
+      "type": "action",
+      "name": "Buy",
+      "position": {
+        "x": 1323.817722716071,
+        "y": 136.57538461207335
+      },
+      "data": {},
+      "inputs": [
+        "Moving Average (indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04)"
+      ]
+    },
+    {
+      "id": "indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512",
+      "type": "indicator",
+      "name": "Moving Average",
+      "position": {
+        "x": 390.58751886262576,
+        "y": 345.50751980314317
+      },
+      "data": {
+        "period": 14,
+        "type": "Simple",
+        "source": "Close"
+      },
+      "description": "Adds ma field to candle",
+      "inputs": [
+        "Price Feed (datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a)"
+      ],
+      "outputs": [
+        "Cross Down (operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4)"
+      ]
+    },
+    {
+      "id": "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af",
+      "type": "indicator",
+      "name": "Moving Average",
+      "position": {
+        "x": 912.9178568403001,
+        "y": 355.9541265626968
+      },
+      "data": {
+        "period": "20",
+        "type": "Simple",
+        "source": "Close",
+        "outputField": ""
+      },
+      "description": "Adds ma field to candle",
+      "inputs": [
+        "Cross Down (operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4)"
+      ],
+      "outputs": [
+        "Sell (action-95bfbf5d-15b6-45bb-a4d4-0a866bc28cfe)"
+      ]
+    },
+    {
+      "id": "operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4",
+      "type": "operator",
+      "name": "Cross Down",
+      "position": {
+        "x": 688.3158115099004,
+        "y": 392.51725022113385
+      },
+      "data": {},
+      "inputs": [
+        "Moving Average (indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512)"
+      ],
+      "outputs": [
+        "Moving Average (indicator-2802cc67-51ac-47bc-a601-e1c87fb991af)"
+      ]
+    },
+    {
+      "id": "action-95bfbf5d-15b6-45bb-a4d4-0a866bc28cfe",
+      "type": "action",
+      "name": "Sell",
+      "position": {
+        "x": 1337.746531728809,
+        "y": 420.3748682466099
+      },
+      "data": {},
+      "inputs": [
+        "Moving Average (indicator-2802cc67-51ac-47bc-a601-e1c87fb991af)"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-e0c91308-84e2-4b21-87ed-c60e2b6b9967",
+      "source": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+      "target": "indicator-7380fc64-4fd7-493a-8491-d3908c4fa458"
+    },
+    {
+      "id": "e-8011de4e-4ec5-426d-b76f-a35daf57ed78",
+      "source": "indicator-7380fc64-4fd7-493a-8491-d3908c4fa458",
+      "target": "operator-db13e298-6940-492c-b302-6d3e564483d6"
+    },
+    {
+      "id": "e-b1180590-7f0d-4cad-9501-c1c4517bcc34",
+      "source": "operator-db13e298-6940-492c-b302-6d3e564483d6",
+      "target": "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04"
+    },
+    {
+      "id": "e-8cdc948f-b47e-46f2-88dd-8669c3697bc0",
+      "source": "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04",
+      "target": "action-acf81af6-09b3-4eab-ac89-bf4f67096bac"
+    },
+    {
+      "id": "e-d7622d8f-0717-4cb6-98b3-94681f6c42a3",
+      "source": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+      "target": "indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512"
+    },
+    {
+      "id": "e-a8330d85-adc2-4eb0-bed2-f5b8018416de",
+      "source": "indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512",
+      "target": "operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4"
+    },
+    {
+      "id": "e-96b4c180-e1ec-4ec0-a241-cb5cbcb7689d",
+      "source": "operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4",
+      "target": "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af"
+    },
+    {
+      "id": "e-8369e076-4716-47c4-93a0-2a4758dd0cad",
+      "source": "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af",
+      "target": "action-95bfbf5d-15b6-45bb-a4d4-0a866bc28cfe"
+    }
+  ],
+  "tradingBot": {
+    "dataSources": [
+      {
+        "name": "Price Feed",
+        "id": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+        "params": {}
+      }
+    ],
+    "indicators": [
+      {
+        "name": "Moving Average",
+        "id": "indicator-7380fc64-4fd7-493a-8491-d3908c4fa458",
+        "params": {
+          "period": 14,
+          "type": "Simple",
+          "source": "Close"
+        },
+        "inputs": [
+          {
+            "sourceId": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+            "sourceType": "datasource",
+            "sourceName": "Price Feed"
+          }
+        ]
+      },
+      {
+        "name": "Moving Average",
+        "id": "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04",
+        "params": {
+          "period": "20",
+          "type": "Simple",
+          "source": "Close",
+          "outputField": ""
+        },
+        "inputs": [
+          {
+            "sourceId": "operator-db13e298-6940-492c-b302-6d3e564483d6",
+            "sourceType": "operator",
+            "sourceName": "Cross Up"
+          }
+        ]
+      },
+      {
+        "name": "Moving Average",
+        "id": "indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512",
+        "params": {
+          "period": 14,
+          "type": "Simple",
+          "source": "Close"
+        },
+        "inputs": [
+          {
+            "sourceId": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+            "sourceType": "datasource",
+            "sourceName": "Price Feed"
+          }
+        ]
+      },
+      {
+        "name": "Moving Average",
+        "id": "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af",
+        "params": {
+          "period": "20",
+          "type": "Simple",
+          "source": "Close",
+          "outputField": ""
+        },
+        "inputs": [
+          {
+            "sourceId": "operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4",
+            "sourceType": "operator",
+            "sourceName": "Cross Down"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "name": "Cross Up",
+        "id": "operator-db13e298-6940-492c-b302-6d3e564483d6",
+        "inputs": [
+          {
+            "sourceId": "indicator-7380fc64-4fd7-493a-8491-d3908c4fa458",
+            "sourceType": "indicator",
+            "sourceName": "Moving Average"
+          }
+        ]
+      },
+      {
+        "name": "Cross Down",
+        "id": "operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4",
+        "inputs": [
+          {
+            "sourceId": "indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512",
+            "sourceType": "indicator",
+            "sourceName": "Moving Average"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "Buy",
+        "id": "action-acf81af6-09b3-4eab-ac89-bf4f67096bac",
+        "inputs": [
+          {
+            "sourceId": "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04",
+            "sourceType": "indicator",
+            "sourceName": "Moving Average"
+          }
+        ]
+      },
+      {
+        "name": "Sell",
+        "id": "action-95bfbf5d-15b6-45bb-a4d4-0a866bc28cfe",
+        "inputs": [
+          {
+            "sourceId": "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af",
+            "sourceType": "indicator",
+            "sourceName": "Moving Average"
+          }
+        ]
+      }
+    ],
+    "logic": {
+      "buy": [
+        "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04"
+      ],
+      "sell": [
+        "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af"
+      ]
+    }
+  },
+  "jsonLogic": {
+    "dataSources": [
+      {
+        "id": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+        "name": "Price Feed",
+        "type": "candle"
+      }
+    ],
+    "indicators": [
+      {
+        "id": "indicator-7380fc64-4fd7-493a-8491-d3908c4fa458",
+        "name": "Moving Average",
+        "type": "movingaverage",
+        "sourceId": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+        "field": "ma",
+        "parameters": {
+          "period": 14,
+          "type": "Simple",
+          "source": "Close"
+        }
+      },
+      {
+        "id": "indicator-a206722b-5543-4e11-ad0a-8f8cb8f25f04",
+        "name": "Moving Average",
+        "type": "movingaverage",
+        "sourceId": "operator-db13e298-6940-492c-b302-6d3e564483d6",
+        "field": "ma",
+        "parameters": {
+          "period": "20",
+          "type": "Simple",
+          "source": "Close",
+          "outputField": ""
+        }
+      },
+      {
+        "id": "indicator-d4bdfe5f-4e0e-4084-bb57-8e8e00069512",
+        "name": "Moving Average",
+        "type": "movingaverage",
+        "sourceId": "datasource-f00a3cc3-6cdc-4af1-b3eb-e61ef999872a",
+        "field": "ma",
+        "parameters": {
+          "period": 14,
+          "type": "Simple",
+          "source": "Close"
+        }
+      },
+      {
+        "id": "indicator-2802cc67-51ac-47bc-a601-e1c87fb991af",
+        "name": "Moving Average",
+        "type": "movingaverage",
+        "sourceId": "operator-e656ca69-d0b7-4d3a-bb97-73d6d944cda4",
+        "field": "ma",
+        "parameters": {
+          "period": "20",
+          "type": "Simple",
+          "source": "Close",
+          "outputField": ""
+        }
+      }
+    ],
+    "buyRules": {
+      "or": [
+        {
+          "var": "moving average"
+        }
+      ]
+    },
+    "sellRules": {
+      "or": [
+        {
+          "var": "moving average"
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-05-13T20:34:15.639Z",
+    "updatedAt": "2025-05-13T20:34:15.639Z",
+    "conditions": {
+      "buy": [],
+      "sell": []
+    }
+  }
+}
